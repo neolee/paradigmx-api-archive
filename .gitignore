@@ -1,0 +1,10 @@
+*.swp
+temp
+tmp
+local
+
+.DS_Store
+
+.nrepl-port
+.lein-repl-history
+target
