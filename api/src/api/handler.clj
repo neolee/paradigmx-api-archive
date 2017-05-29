@@ -5,7 +5,7 @@
             [clj-time.core :as t]
             [clj-time.format :as f]
             [clj-time.predicates :as pr]
-            ))
+            [clj-time.periodic :as p]))
 
 (def holidays {"2017" #{"0101", "0102"
                         "0127", "0128", "0129", "0130", "0131", "0201", "0202",
@@ -45,6 +45,19 @@
         false)))
   )
 
+(defn holidays-in-month
+  "return all holidays in given month"
+  [month]
+  (let [m (f/parse (f/formatter "yyyyMM") month)
+        d1 (t/first-day-of-the-month m)
+        d2 (t/last-day-of-the-month m)
+        n (+ (t/in-days (t/interval d1 d2)) 1)
+        days (map #(f/unparse (f/formatter "yyyyMMdd") %) (take n (p/periodic-seq d1 (t/days 1))))
+        ]
+    (filter holiday? days)
+    )
+  )
+
 (def app
   (api
     {:swagger
@@ -52,26 +65,19 @@
       :spec "/swagger.json"
       :data {:info {:title "Paradigm X"
                     :description "Open APIs for Paradigm X micro-services"}
-             :tags [{:name "util", :description "Utilities"}
-                    {:name "holiday", :description "Holiday data services"}]}}}
-
-    (context "/util" []
-      :tags ["util"]
-
-      (GET "/plus" []
-        :return {:result Long}
-        :query-params [x :- Long, y :- Long]
-        :summary "adds two numbers together"
-        (ok {:result (+ x y)}))
-      )
+             :tags [{:name "holiday", :description "Holiday data services"}]}}}
 
     (context "/holiday" []
       :tags ["holiday"]
 
       (GET "/check" []
         :return {:isHoliday Boolean}
-        :query-params [d :- String]
+        :query-params [date :- String]
         :summary "test given date return true if it's a holiday"
-        (ok {:isHoliday (holiday? d)}))
-      )
-    ))
+        (ok {:isHoliday (holiday? date)}))
+
+      (GET "/holidays" []
+        :return {:holidays [String]}
+        :query-params [month :- String]
+        :summary "return all holidays in given month"
+        (ok {:holidays (holidays-in-month month)})))))
