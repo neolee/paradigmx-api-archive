@@ -2,6 +2,7 @@
   (:require [clojure.tools.logging :as log]
             [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
+            [ring.middleware.cors :refer [wrap-cors]]
             [clj-time.core :as t]
             [clj-time.format :as f]
             [clj-time.predicates :as pr]
@@ -59,7 +60,8 @@
   )
 
 (def app
-  (api
+  (->
+   (api
     {:swagger
      {:ui "/"
       :spec "/swagger.json"
@@ -80,4 +82,7 @@
         :return {:holidays [String]}
         :query-params [month :- String]
         :summary "return all holidays in given month"
-        (ok {:holidays (holidays-in-month month)})))))
+        (ok {:holidays (holidays-in-month month)}))))
+   (wrap-cors :access-control-allow-origin #".*"
+              :access-control-allow-methods [:get :put :post]
+              :access-control-allow-headers ["Content-Type"])))
