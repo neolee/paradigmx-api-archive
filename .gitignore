@@ -7,4 +7,7 @@ local
 
 .nrepl-port
 .lein-repl-history
+.lein-failures
 target
+docs
+dev-resources
