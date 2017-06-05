@@ -1,4 +1,4 @@
-(ns api.handler
+(ns paradigmx.handler
   (:require [clojure.tools.logging :as log]
             [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
