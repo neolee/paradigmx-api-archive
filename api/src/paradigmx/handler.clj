@@ -68,16 +68,13 @@
       :data {:info {:title "Paradigm X"
                     :description "Open APIs for Paradigm X micro-services"}
              :tags [{:name "holiday", :description "Holiday data services"}]}}}
-
     (context "/holiday" []
       :tags ["holiday"]
-
       (GET "/check" []
         :return {:isHoliday Boolean}
         :query-params [date :- String]
         :summary "test given date return true if it's a holiday"
         (ok {:isHoliday (holiday? date)}))
-
       (GET "/holidays" []
         :return {:holidays [String]}
         :query-params [month :- String]
