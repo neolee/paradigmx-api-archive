@@ -3,7 +3,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.4.0"]
                  [metosin/compojure-api "1.2.0-alpha8"]
-                 [ring-cors "0.1.10"]
+                 [ring-cors "0.1.11"]
                  [clj-time "0.13.0"]]
   :ring {:handler paradigmx.handler/app}
   :uberjar-name "server.jar"
