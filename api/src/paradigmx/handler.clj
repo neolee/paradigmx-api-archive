@@ -3,6 +3,9 @@
             [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
             [ring.middleware.cors :refer [wrap-cors]]
+            [ring.middleware.resource :refer [wrap-resource]]
+            [ring.middleware.content-type :refer [wrap-content-type]]
+            [ring.middleware.not-modified :refer [wrap-not-modified]]
             [paradigmx.holiday :refer [holiday? holidays-in-month]]
             [paradigmx.spell :refer [correct]]))
 
@@ -35,6 +38,9 @@
         :query-params [word :- String]
         :summary "return best guess on correcting input word"
         (ok {:word (correct word)}))))
+   (wrap-resource "public")
+   (wrap-content-type)
+   (wrap-not-modified)
    (wrap-cors :access-control-allow-origin #".*"
               :access-control-allow-methods [:get :put :post]
               :access-control-allow-headers ["Content-Type"])))
