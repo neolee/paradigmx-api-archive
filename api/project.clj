@@ -8,5 +8,5 @@
   :ring {:handler paradigmx.handler/app}
   :uberjar-name "server.jar"
   :profiles {:dev {:dependencies [[javax.servlet/javax.servlet-api "4.0.0"]]
-                   :plugins [[lein-ring "0.12.1"]]}}
+                   :plugins [[lein-ring "0.12.2"]]}}
   :resource-paths ["resources"])
