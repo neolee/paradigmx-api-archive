@@ -2,7 +2,7 @@
   :description "Open APIs for Paradigm X micro-services"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.4.1"]
-                 [clj-time "0.14.4"]
+                 [clj-time "0.15.1"]
                  [metosin/compojure-api "2.0.0-SNAPSHOT"]
                  [ring-cors "0.1.12"]]
   :ring {:handler paradigmx.handler/app}
