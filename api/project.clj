@@ -1,6 +1,6 @@
 (defproject api "0.1.0"
   :description "Open APIs for Paradigm X micro-services"
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.logging "0.4.1"]
                  [clj-time "0.15.1"]
                  [metosin/compojure-api "2.0.0-SNAPSHOT"]
